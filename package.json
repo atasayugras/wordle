@@ -12,14 +12,13 @@
     "process": "0.11.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "rimraf": "5.0.1",
-    "serve": "^14.2.1"
+    "rimraf": "5.0.1"
   },
   "scripts": {
     "predev": "rimraf .parcel-cache dist",
     "dev": "parcel public/index.html",
     "build": "parcel build public/index.html",
-    "start": "parcel public/index.html --port 1234",
+    "start": "npx http-server dist -p $PORT",
     "new-component": "new-component"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead"
