@@ -1,4 +1,4 @@
-export const NUM_OF_GUESSES_ALLOWED = 4;
+export const NUM_OF_GUESSES_ALLOWED = 5;
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 // First row: 0-9 (10 letters)
