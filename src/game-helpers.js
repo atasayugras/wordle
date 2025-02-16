@@ -38,23 +38,43 @@ export function checkGuess(guess, answer) {
 
 // For the Keyboard component
 export function getStatusByLetter(guesses, answer) {
-
+    // Create our dictionary of letters
     const letterStatuses = {};
 
-    guesses.forEach(guess => {
-        const result = checkGuess(guess, answer);
-        if (!result) return;
+    // Process each guess one at a time
+    for (let guess of guesses) {
+        // Skip invalid guesses
+        if (!guess) continue;
 
-        result.forEach(({letter, status}) => {
-            const currentStatus = letterStatuses[letter];
+        // Convert guess and answer to uppercase arrays
+        const guessLetters = guess.toUpperCase().split('');
+        const answerLetters = answer.toUpperCase().split('');
 
-            if (!currentStatus ||
-                status === 'correct' ||
-                (currentStatus === 'incorrect' && status === 'misplaced')) {
-                letterStatuses[letter] = status;
+        // Check each letter in the guess
+        for (let i = 0; i < guessLetters.length; i++) {
+            const letter = guessLetters[i];
+
+            // Step 1: Is it in the correct position?
+            if (letter === answerLetters[i]) {
+                letterStatuses[letter] = 'correct';
+                continue;  // Move to next letter
             }
-        });
-    });
+
+            // Step 2: Is it in the word at all?
+            if (answerLetters.includes(letter)) {
+                // Only update if we haven't marked this letter as correct before
+                if (letterStatuses[letter] !== 'correct') {
+                    letterStatuses[letter] = 'misplaced';
+                }
+                continue;  // Move to next letter
+            }
+
+            // Step 3: If we haven't recorded this letter yet, mark it as incorrect
+            if (!letterStatuses[letter]) {
+                letterStatuses[letter] = 'incorrect';
+            }
+        }
+    }
 
     return letterStatuses;
 }

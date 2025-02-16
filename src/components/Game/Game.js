@@ -3,7 +3,8 @@ import {sample} from '../../utils';
 import {WORDS} from '../../data';
 import Input from '../Input';
 import Results from '../Results';
-import Banner from "../Banner";
+import PositiveBanner from "../PositiveBanner";
+import NegativeBanner from "../NegativeBanner";
 import Keyboard from "../Keyboard";
 import {NUM_OF_GUESSES_ALLOWED} from "../../constants";
 
@@ -30,23 +31,27 @@ function Game({handleRestart}) {
     }
 
     return <>
-        {gameStatus !== 'running' && (  // Only show banner when game is won or lost
-            <Banner
-                gameStatus={gameStatus}
-                answer={answer}
-                guesses={guesses}
+        {gameStatus === 'won' && (  // Only show banner when game is won or lost
+            <PositiveBanner
+                numOfGuesses={guesses.length}
                 handleRestart={handleRestart}
             />
         )}
-        <Results
-            guesses={guesses}
-            answer={answer}
-        />
-        <Input
-            handleSubmitGuess={handleSubmitGuess}
-            gameStatus={gameStatus}
-        />
-        <Keyboard guesses={guesses} answer={answer}/>
+        {gameStatus === 'lost' && (
+            <NegativeBanner
+                answer={answer}
+                handleRestart={handleRestart}
+            />
+        )}
+            <Results
+                guesses={guesses}
+                answer={answer}
+            />
+            <Input
+                handleSubmitGuess={handleSubmitGuess}
+                gameStatus={gameStatus}
+            />
+            <Keyboard guesses={guesses} answer={answer}/>
     </>
 }
 
